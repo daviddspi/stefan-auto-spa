@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://stefan-auto-spa.vercel.app/sitemap.xml

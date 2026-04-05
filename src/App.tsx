@@ -335,13 +335,16 @@ const Hero = () => {
       {/* Cinematic Background */}
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
         <video
-          src="/newHeroVideo.mp4"
           className="absolute inset-0 w-full h-full object-cover scale-105"
           autoPlay
           muted
           loop
           playsInline
-        />
+          preload="auto"
+          poster="/images/gallery/hero3.webp"
+        >
+          <source src="/videos/newHeroVideo.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-secondary/60" />
 
         {/* Gradient overlays for legibility */}

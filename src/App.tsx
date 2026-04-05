@@ -109,7 +109,7 @@ const Navbar = () => {
   return (
     <>
       <nav 
-        className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 ${isScrolled ? 'bg-secondary/95 backdrop-blur-xl py-4 shadow-2xl' : 'bg-transparent py-8 md:py-12'}`}
+        className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 ${isScrolled ? 'bg-secondary/95 md:backdrop-blur-xl py-4 shadow-2xl' : 'bg-transparent py-8 md:py-12'}`}
         aria-label="Main navigation"
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 flex justify-between items-center">
@@ -124,6 +124,7 @@ const Navbar = () => {
               src={BUSINESS_CONFIG.logo} 
               alt={BUSINESS_CONFIG.name} 
               className={`h-11 md:h-14 w-auto object-contain transition-all duration-500`} 
+              loading="eager"
             />
           </a>
 
@@ -797,10 +798,10 @@ const Gallery = () => {
 
   const items = [
     { type: 'video', src: '/videos/v1.mp4', label: 'Premium Detailing Proces', size: 'lg' },
-    { type: 'image', src: '/images/gallery/gallery-7.jpg', label: 'BMW Detailing', size: 'sm' },
-    { type: 'image', src: '/images/gallery/gallery-8.jpg', label: 'Interior Nega', size: 'sm' },
+    { type: 'image', src: '/images/gallery/gallery-7.webp', label: 'BMW Detailing', size: 'sm' },
+    { type: 'image', src: '/images/gallery/gallery-8.webp', label: 'Interior Nega', size: 'sm' },
     { type: 'video', src: '/videos/v2.mp4', label: 'Eksterna Priprema', size: 'sm' },
-    { type: 'image', src: '/images/gallery/gallery-9.jpg', label: 'Dashboard Detailing', size: 'lg' },
+    { type: 'image', src: '/images/gallery/gallery-9.webp', label: 'Dashboard Detailing', size: 'lg' },
     { type: 'video', src: '/videos/v3.mp4', label: 'Završni Sjaj', size: 'sm' },
   ];
 
@@ -856,6 +857,8 @@ const Gallery = () => {
                   src={item.src}
                   alt={item.label}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                  decoding="async"
                 />
               )}
               
@@ -935,14 +938,14 @@ const Testimonials = () => {
   return (
     <section className="py-12 sm:py-24 bg-secondary relative overflow-hidden" id="testimonials">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-12 md:mb-16">
+        <div className="text-center mb-6 md:mb-16">
           <div className="flex items-center justify-center gap-2 mb-6">
             <div className="h-1 w-12 bg-primary" />
             <span className="text-primary font-black tracking-[0.3em] text-[11px] uppercase">Šta Kažu Klijenti</span>
             <div className="h-1 w-12 bg-primary" />
           </div>
           <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic mb-6">
-            Showroom <span className="text-primary">Iskustva</span>
+            Recenzije
           </h2>
           <p className="text-white/50 text-[13px] md:text-[15px] max-w-2xl mx-auto leading-relaxed px-4">
              Poverenje koje smo stekli kroz stotine radnih sati na najekskluzivnijim automobilima.
@@ -952,8 +955,8 @@ const Testimonials = () => {
         {/* The Slider Container with Gradient Masks */}
         <div className="relative w-full h-[420px] sm:h-[550px] flex items-center overflow-hidden">
           {/* Shadow Overlays */}
-          <div className="absolute inset-y-0 left-0 w-24 sm:w-64 bg-gradient-to-r from-secondary via-secondary/80 to-transparent z-30 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-24 sm:w-64 bg-gradient-to-l from-secondary via-secondary/80 to-transparent z-30 pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-24 sm:w-64 bg-gradient-to-r from-secondary via-secondary/80 to-transparent z-30 pointer-events-none hidden md:block" />
+          <div className="absolute inset-y-0 right-0 w-24 sm:w-64 bg-gradient-to-l from-secondary via-secondary/80 to-transparent z-30 pointer-events-none hidden md:block" />
 
           <motion.div 
             animate={{ 
@@ -980,7 +983,7 @@ const Testimonials = () => {
                     bg-surface/80 backdrop-blur-3xl border transition-all duration-1000
                     ${isCenter 
                       ? 'border-primary/40 shadow-[0_0_80px_rgba(47,52,153,0.3)] opacity-100 scale-110 z-20' 
-                      : 'border-white/5 opacity-30 scale-90 blur-[6px] z-10'}
+                      : 'border-white/5 md:opacity-30 opacity-80 scale-90 z-10'}
                     rounded-none flex flex-col relative
                   `}
                   style={{ width: `${dimensions.cardWidth}px` }}
@@ -1146,16 +1149,16 @@ const PricingCard = ({ plan, idx, vehicleClass }: any) => {
     <motion.div 
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, delay: idx * 0.1 }}
       className={`relative p-8 h-fit rounded-none border transition-all duration-200 hover:-translate-y-2 flex flex-col group/card shadow-xl hover:shadow-2xl ${
         isBasic 
           ? 'bg-primary border-transparent text-white shadow-[0_0_40px_rgba(47,52,153,0.3)] hover:shadow-[0_0_60px_rgba(47,52,153,0.4)] z-10' 
           : isVip
-            ? 'bg-surface/40 backdrop-blur-md border-primary/60 text-white shadow-[0_0_50px_rgba(47,52,153,0.25)] hover:shadow-[0_0_70px_rgba(47,52,153,0.4)] ring-2 ring-primary/30 z-10'
+            ? 'bg-surface/40 md:backdrop-blur-md border-primary/60 text-white shadow-[0_0_50px_rgba(47,52,153,0.25)] hover:shadow-[0_0_70px_rgba(47,52,153,0.4)] ring-2 ring-primary/30 z-10'
             : plan.recommended
-              ? 'bg-surface/40 backdrop-blur-md border-primary/40 text-white shadow-[0_0_30px_rgba(47,52,153,0.15)] ring-1 ring-primary/20 z-10'
-              : 'bg-surface/40 backdrop-blur-md border-white/10 hover:border-white/20 text-white'
+              ? 'bg-surface/40 md:backdrop-blur-md border-primary/40 text-white shadow-[0_0_30px_rgba(47,52,153,0.15)] ring-1 ring-primary/20 z-10'
+              : 'bg-surface/40 md:backdrop-blur-md border-white/10 hover:border-white/20 text-white'
       }`}
     >
       {plan.badge && (
@@ -1281,7 +1284,7 @@ const Pricing = () => {
 
         {/* Satisfaction Guarantee */}
         <div className="mt-32 w-full">
-          <div className="bg-surface/40 backdrop-blur-md border border-white/10 rounded-none p-10 md:p-14 flex flex-col lg:flex-row items-center gap-10 md:gap-14 text-center lg:text-left transition-colors duration-500 hover:border-primary/50 group shadow-2xl">
+          <div className="bg-surface/40 md:backdrop-blur-md border border-white/10 rounded-none p-10 md:p-14 flex flex-col lg:flex-row items-center gap-10 md:gap-14 text-center lg:text-left transition-colors duration-500 hover:border-primary/50 group shadow-2xl">
             <div className="relative shrink-0">
               <div className="w-20 h-20 border-2 border-primary rotate-45 rounded-none flex items-center justify-center bg-surface/80 backdrop-blur-sm shadow-[0_0_30px_rgba(47,52,153,0.2)] group-hover:shadow-[0_0_50px_rgba(47,52,153,0.4)] transition-all duration-500">
                 <Shield className="w-8 h-8 text-primary -rotate-45" strokeWidth={2.5} />
@@ -1337,7 +1340,7 @@ const Pricing = () => {
             <p className="mt-6 text-white/50 text-[10px] font-bold uppercase tracking-[0.3em]">Cene se sinhronizovano ažuriraju za sve pakete i usluge</p>
           </div>
 
-          <div className="bg-surface/20 rounded-none border border-white/5 overflow-hidden backdrop-blur-md">
+          <div className="bg-surface/20 rounded-none border border-white/5 overflow-hidden md:backdrop-blur-md">
             <div className="w-full">
               <table className="w-full text-left border-collapse">
                 <thead>
@@ -1433,10 +1436,10 @@ const Contact = () => {
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-start">
           
           {/* Left Side: Info */}
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center order-1 lg:col-start-1 lg:row-start-1">
             <div className="flex items-center gap-2 mb-8 justify-center lg:justify-start">
               <div className="h-1 w-8 sm:w-12 bg-primary" />
               <span className="text-primary font-bold tracking-[0.3em] text-[10px] sm:text-xs uppercase">Zakaži termin</span>
@@ -1448,10 +1451,13 @@ const Contact = () => {
               <span className="text-primary">putem aplikacija.</span>
             </h2>
             
-            <p className="text-white/40 text-sm md:text-base mb-12 leading-relaxed text-center lg:text-left max-w-xl mx-auto lg:mx-0">
+            <p className="text-white/40 text-sm md:text-base mb-4 md:mb-12 leading-relaxed text-center lg:text-left max-w-xl mx-auto lg:mx-0">
               Preskočite čekanje i popunjavanje formi. Pošaljite nam poruku direktno na WhatsApp ili Viber i dobićete odgovor u najkraćem mogućem roku.
             </p>
+          </div>
 
+          {/* Left Side: Info Cards */}
+          <div className="order-3 lg:col-start-1 lg:row-start-2">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Phone Card */}
               <div className="bg-surface/40 backdrop-blur-3xl border border-white/5 p-6 group hover:border-primary/20 transition-all">
@@ -1524,7 +1530,7 @@ const Contact = () => {
           </div>
 
           {/* Right Side: Direct Actions */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 order-2 lg:col-start-2 lg:row-start-1 lg:row-span-2">
             {/* WhatsApp - Main Action */}
             <motion.a
               href={`https://wa.me/${cleanPhone}`}
@@ -1692,21 +1698,23 @@ const Footer = () => {
   return (
     <footer className="bg-secondary border-t border-white/5 pt-24 pb-12">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20 text-center md:text-left">
+          <div className="lg:col-span-2 flex flex-col items-center md:items-start">
+            <div className="flex items-center justify-center md:justify-start gap-3 mb-8">
               <div className="flex items-center justify-center">
                 <img 
                   src={BUSINESS_CONFIG.logo} 
                   alt={`${BUSINESS_CONFIG.name} Logo`} 
                   className="h-12 md:h-16 w-auto object-contain" 
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
-            <p className="text-white/60 max-w-sm mb-8 leading-relaxed">
+            <p className="text-white/60 max-w-sm mx-auto md:mx-0 mb-8 leading-relaxed">
               Specijalizovan studio za kompletnu negu i zaštitu premijum vozila. Vrhunska kozmetika, najsavremenije tehnike i decenijsko iskustvo u detailingu.
             </p>
-            <div className="flex gap-4" role="list" aria-label="Social media links">
+            <div className="flex justify-center md:justify-start gap-4" role="list" aria-label="Social media links">
               <a href={BUSINESS_CONFIG.contact.social.instagram} className="w-11 h-11 bg-surface rounded-none flex items-center justify-center hover:bg-primary active:scale-95 transition-all text-white hover:text-white" aria-label="Follow us on Instagram" role="listitem">
                 <Instagram size={18} aria-hidden="true" />
               </a>
@@ -1744,13 +1752,18 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-white/20 text-xs font-bold tracking-[0.3em] uppercase">
+        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-white/20 text-[10px] font-bold tracking-[0.3em] uppercase text-center md:text-left">
             © {new Date().getFullYear()} {BUSINESS_CONFIG.name}. SVA PRAVA ZADRŽANA.
           </p>
-          <div className="flex gap-8">
-            <a href="#" className="text-white/20 hover:text-white transition-colors text-xs font-bold tracking-[0.3em] uppercase">Politika privatnosti</a>
-            <a href="#" className="text-white/20 hover:text-white transition-colors text-xs font-bold tracking-[0.3em] uppercase">Uslovi korišćenja</a>
+
+          <p className="text-white/20 text-[10px] font-bold tracking-[0.2em] uppercase text-center">
+            Designed & Developed by <a href="https://www.instagram.com/djuka.2/" target="_blank" rel="noopener noreferrer" className="text-primary font-black hover:text-white transition-colors">David</a>
+          </p>
+
+          <div className="flex justify-center md:justify-end gap-6">
+            <a href="#" className="text-white/10 hover:text-white/30 transition-colors text-[9px] font-bold tracking-[0.3em] uppercase">Politika privatnosti</a>
+            <a href="#" className="text-white/10 hover:text-white/30 transition-colors text-[9px] font-bold tracking-[0.3em] uppercase">Uslovi korišćenja</a>
           </div>
         </div>
       </div>

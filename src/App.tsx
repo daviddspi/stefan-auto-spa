@@ -335,7 +335,7 @@ const Hero = () => {
       {/* Cinematic Background */}
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
         <video
-          src="/videos/hero.mp4"
+          src="/newHeroVideo.mp4"
           className="absolute inset-0 w-full h-full object-cover scale-105"
           autoPlay
           muted
